@@ -1,2 +1,2 @@
 # OPNet
-Learning Unknown Space for Autonomous Navigation in Clustered Environment
+Learning Unknown Space for Autonomous Navigation in Occluded Environment
