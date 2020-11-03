@@ -1,2 +1,2 @@
 # OPNet
-Learning Unknown Space for Autonomous Navigation in Occluded Environments
+Learning-based 3D Occupancy Prediction for Autonomous Navigation in Occluded Environments
