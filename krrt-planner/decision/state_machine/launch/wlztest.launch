@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+  <arg name="odom_topic" value="/t265/odom/sample" />
+  <arg name="depth_topic" value="/d400/depth/image_rect_raw" />
+  <arg name="pcl_topic" value="/lio_sam/deskew/cloud_deskewed" />
+  <arg name="odom_pcl_topic" value="/lio_sam/OdomPcl" />
+
+<!--   <arg name="global_env_pcd2_topic" value="cloud_pcd" /> -->
+  <arg name="global_env_pcd2_topic" value="/random_forest/all_map" />
+  <arg name="map_size_x" value="20.0" />
+  <arg name="map_size_y" value="20.0" />
+  <arg name="map_size_z" value="5" />
+  <arg name="origin_x" value=" -10.0" />
+  <arg name="origin_y" value=" -10.0" />
+  <arg name="origin_z" value=" -1.0" />
+  <arg name="resolution" value="0.05" />
+
+  <node pkg="state_machine" type="state_machine_node" name="state_machine_node" output="screen" > 
+    <remap from="/global_cloud" to="$(arg global_env_pcd2_topic)"/>
+    <remap from="/odom_topic" to="$(arg odom_topic)"/>
+    <remap from="/depth_topic" to="$(arg depth_topic)" />
+    <remap from="/pcl_topic" to="$(arg pcl_topic)"/>
+    <remap from="/odom_pcl_topic" to="$(arg odom_pcl_topic)"/>
+    
+    <param name="occ_map/origin_x" value="$(arg origin_x)" type="double"/>
+    <param name="occ_map/origin_y" value="$(arg origin_y)" type="double"/>
+    <param name="occ_map/origin_z" value="$(arg origin_z)" type="double"/>
+    <param name="occ_map/map_size_x" value="$(arg map_size_x)" type="double"/>
+    <param name="occ_map/map_size_y" value="$(arg map_size_y)" type="double"/>
+    <param name="occ_map/map_size_z" value="$(arg map_size_z)" type="double"/>
+    <param name="occ_map/local_radius_x"  value="10" /> 
+    <param name="occ_map/local_radius_y"  value="10" /> 
+    <param name="occ_map/local_radius_z"  value="3" /> 
+    <param name="occ_map/resolution" value="$(arg resolution)" type="double"/>
+    <param name="occ_map/show_raw_depth" value="true" type="bool"/>
+    <param name="occ_map/show_filter_proj_depth" value="true" type="bool"/>
+		<param name="occ_map/depth_scale" value="1000.0"/>
+		<param name="occ_map/depth_filter_maxdist"   value="10.0"/>
+    <param name="occ_map/depth_filter_mindist"   value="0.1"/>
+		<param name="occ_map/depth_filter_margin"    value="1"/>
+    <param name="occ_map/skip_pixel" value="2"/>    
+    <param name="occ_map/unknown_as_free" value="true" type="bool"/>
+    
+    <!-- use when publish local pointcloud -->
+    <param name="occ_map/local_grid_size_x" value="80"/>
+    <param name="occ_map/local_grid_size_y" value="80"/>
+    <param name="occ_map/local_grid_size_z" value="32"/>
+
+    <!-- use when mapping frequency is high (>= 30Hz) -->
+    <param name="occ_map/use_shift_filter" value="false" type="bool"/>
+    <param name="occ_map/use_global_map" value="false" type="bool"/>
+    <param name="occ_map/depth_filter_tolerance" value="0.2"/>
+    
+    <param name="occ_map/cx" value="321.8554382324219"/>
+    <param name="occ_map/cy" value="241.2396240234375"/>
+    <param name="occ_map/fx" value="386.02557373046875"/>
+    <param name="occ_map/fy" value="386.02557373046875"/>
+    <param name="occ_map/rows" value="480"/>
+    <param name="occ_map/cols" value="640"/>
+
+    <param name="occ_map/prob_hit_log"  value="1.2"/>
+    <param name="occ_map/prob_miss_log" value="-0.30"/>
+    <param name="occ_map/clamp_min_log"  value="-1.0"/>
+    <param name="occ_map/clamp_max_log"  value="2.0"/>
+    <param name="occ_map/min_occupancy_log"  value="0.0"/>
+    <!-- <param name="occ_map/min_occupancy_log"  value="1.39"/> -->
+    <param name="occ_map/min_ray_length" value="0.2"/>
+    <!-- <param name="occ_map/max_ray_length" value="8.0"/> -->
+    <param name="occ_map/max_ray_length" value="10.0"/>
+    <param name="occ_map/use_global_map" value="false" type="bool"/>
+  
+    <!-- kinorrt* params --> 
+    <param name="sample/px_min" value="$(arg origin_x)" type="double"/>
+    <param name="sample/px_max" value="14" type="double"/>
+    <param name="sample/py_min" value="$(arg origin_y)" type="double"/>
+    <param name="sample/py_max" value="3" type="double"/>
+    <param name="sample/pz_min" value="$(arg origin_z)" type="double"/>
+    <param name="sample/pz_max" value="2" type="double"/>
+    <param name="sample/vx_min" value="-5.5" type="double"/>
+    <param name="sample/vx_max" value="5.5" type="double"/>
+    <param name="sample/vy_min" value="-5.5" type="double"/>
+    <param name="sample/vy_max" value="5.5" type="double"/>
+    <param name="sample/vz_min" value="-5.5" type="double"/>
+    <param name="sample/vz_max" value="5.5" type="double"/>
+    <param name="sample/ax_min" value="-5.0" type="double"/>
+    <param name="sample/ax_max" value="5.0" type="double"/>
+    <param name="sample/ay_min" value="-5.0" type="double"/>
+    <param name="sample/ay_max" value="5.0" type="double"/>
+    <param name="sample/az_min" value="-5.0" type="double"/>
+    <param name="sample/az_max" value="5.0" type="double"/>
+    <param name="sample/v_mag_sample" value="3.1" type="double"/>
+    <!--param name="sample/v_mag_sample" value="3.5" type="double"/-->
+    <param name="sample/rou" value="0.082" type="double"/> <!-- the quadratic matrix R of u'Ru -->
+    <!--param name="sample/rou" value="0.073" type="double"/--> <!-- the quadratic matrix R of u'Ru -->
+    <param name="sample/c0" value="0.0" type="double"/>
+    <param name="sample/c1" value="0.0" type="double"/>
+    <param name="sample/c2" value="0.0" type="double"/>
+    <param name="sample/c3" value="0.0" type="double"/>
+    <param name="sample/c4" value="0.0" type="double"/>
+    <param name="sample/c5" value="0.0" type="double"/>
+    <param name="sample/tree_node_nums" value="5000" type="int" />
+    <param name="sample/orphan_nums" value="1500" type="int" />
+    <param name="sample/search_time" value="0.010" type="double" />
+    <param name="sample/replan_hor_safe_radius" value="0.65" type="double" />
+    <param name="sample/replan_ver_safe_radius" value="0.40" type="double" />
+    <param name="sample/copter_diag_len" value="0.5" type="double" />
+    <param name="sample/radius_cost_between_two_states" value="7" type="double" /> <!-- cost tolerance -->
+    <param name="sample/allow_orphan" value="true" type="bool" />
+    <param name="sample/allow_close_goal" value="true" type="bool" />
+    <param name="sample/stop_after_first_traj_found" value="false" type="bool" />
+    <param name="sample/resolution" value="$(arg resolution)" type="double" />
+    
+    <!-- fsm params --> 
+    <param name="fsm/use_optimization" value="true" type="bool"/>
+    <param name="fsm/replan" value="true" type="bool"/>
+    <param name="fsm/replan_time" value="0.08" type="double"/>
+    <param name="fsm/allow_track_err_replan" value="false" type="bool"/>
+    <param name="fsm/e_stop_time_margin" value="0.5" type="double"/>
+    <param name="fsm/bidirection" value="false" type="bool" />
+
+    
+    <!-- optimization params --> 
+    
+    
+  </node>
+    
+
+    
+</launch>

@@ -1,0 +1,36 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/home/wlz/catkin_ws/devel/include/**",
+        "/opt/ros/kinetic/include/**",
+        "/home/wlz/libtorch/include/**",
+        "/home/wlz/catkin_ws/src/A-LOAM/include/**",
+        "/home/wlz/catkin_ws/src/krrt-planner/uav_simulator/cascade_control/include/**",
+        "/home/wlz/catkin_ws/src/krrt-planner/planning/krrtstar/include/**",
+        "/home/wlz/catkin_ws/src/krrt-planner/uav_simulator/Utils/multi_map_server/include/**",
+        "/home/wlz/catkin_ws/src/krrt-planner/mapping/occ_grid/include/**",
+        "/home/wlz/catkin_ws/src/ocp_msgs/include/**",
+        "/home/wlz/catkin_ws/src/pcl_ros/include/**",
+        "/home/wlz/catkin_ws/src/krrt-planner/planning/poly_opt/include/**",
+        "/home/wlz/catkin_ws/src/krrt-planner/uav_simulator/Utils/pose_utils/include/**",
+        "/home/wlz/catkin_ws/src/krrt-planner/uav_simulator/quadrotor_msgs/include/**",
+        "/home/wlz/catkin_ws/src/realsense-ros-2.2.17/realsense2_camera/include/**",
+        "/home/wlz/catkin_ws/src/opnet/include/**",
+        "/home/wlz/catkin_ws/src/krrt-planner/uav_simulator/so3_control/include/**",
+        "/home/wlz/catkin_ws/src/krrt-planner/uav_simulator/so3_disturbance_generator/include/**",
+        "/home/wlz/catkin_ws/src/krrt-planner/uav_simulator/so3_quadrotor_simulator/include/**",
+        "/home/wlz/catkin_ws/src/krrt-planner/decision/state_machine/include/**",
+        "/home/wlz/catkin_ws/src/trt_test/include/**",
+        "/home/wlz/catkin_ws/src/krrt-planner/uav_simulator/Utils/uav_utils/include/**",
+        "/home/wlz/catkin_ws/src/krrt-planner/decision/vis_utils/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS"
+    }
+  ]
+}

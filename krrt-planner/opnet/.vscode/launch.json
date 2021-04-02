@@ -1,0 +1,34 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Python: train",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "--g",
+                "0",
+                "--data_path",
+                "/home/wlz/h3_64_629_denses",
+                "--train_file_list",
+                "/home/wlz/vox_ws/src/opnet/src/filelists/h3_64.txt",
+                "--val_file_list",
+                "/home/wlz/vox_ws/src/opnet/src/filelists/h3_64_val.txt",
+                "--save",
+                "logs/h3_64_NF",
+            ]
+        }
+    ]
+}

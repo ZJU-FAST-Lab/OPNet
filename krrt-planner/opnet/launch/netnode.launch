@@ -1,0 +1,9 @@
+<launch>
+  <node pkg="opnet" type="net_node.py" name="net_node" output="screen">
+    <param name="/network/service_name" value="/occ_map/pred"/>
+		<param name="/network/model_path" value="/home/wlz/catkin_ws/src/opnet/models/occ_sdf_aspp.pth" />
+		<param name="/network/occ_thresord" value="1.0"/>
+
+	</node>
+
+</launch>

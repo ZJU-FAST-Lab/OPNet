@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+    
+    
+    <!--node pkg="krrtstar" type="krrtstar_node" name="krrtstar_node" output="screen" --> 
+    <!--remap from="/laser_cloud_surround" to="/random_forest/all_map"/ -->
+    <!--remap from="/odom_world" to="/state_ukf/odom"/ -->
+        <!-- node parameters --> 
+        <!--rosparam file="$(find krrtstar)/config/params.yaml" command="load" /-->
+    <!--/node-->
+    
+    
+    <!-- use simulator -->
+    <include file="$(find krrtstar)/launch/simulator.xml" />
+    
+</launch>

@@ -1,0 +1,56 @@
+{
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "",
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "includePath": [
+                "/opt/ros/kinetic/include/**",
+                "/home/wlz/vox_ws/devel/include/**",
+                "/home/wlz/vox_ws/src/mav_active_3d_planning/active_3d_planning_core/include/**",
+                "/home/wlz/vox_ws/src/mav_active_3d_planning/active_3d_planning_mav/include/**",
+                "/home/wlz/vox_ws/src/mav_active_3d_planning/active_3d_planning_ros/include/**",
+                "/home/wlz/vox_ws/src/mav_active_3d_planning/active_3d_planning_voxblox/include/**",
+                "/home/wlz/vox_ws/src/OpenChisel/chisel_ros/include/**",
+                "/home/wlz/vox_ws/src/eigen_checks/include/**",
+                "/home/wlz/vox_ws/src/mavros/libmavconn/include/**",
+                "/home/wlz/vox_ws/src/tools/mav_control_rw/mav_control_interface/include/**",
+                "/home/wlz/vox_ws/src/tools/mav_control_rw/mav_disturbance_observer/include/**",
+                "/home/wlz/vox_ws/src/tools/mav_control_rw/mav_linear_mpc/include/**",
+                "/home/wlz/vox_ws/src/tools/mav_control_rw/mav_lowlevel_attitude_controller/include/**",
+                "/home/wlz/vox_ws/src/mav_comm/mav_msgs/include/**",
+                "/home/wlz/vox_ws/src/tools/mav_control_rw/mav_nonlinear_mpc/include/**",
+                "/home/wlz/vox_ws/src/mav_comm/mav_planning_msgs/include/**",
+                "/home/wlz/vox_ws/src/mav_trajectory_generation/mav_trajectory_generation/include/**",
+                "/home/wlz/vox_ws/src/mav_trajectory_generation/mav_trajectory_generation_example/include/**",
+                "/home/wlz/vox_ws/src/mav_trajectory_generation/mav_trajectory_generation_ros/include/**",
+                "/home/wlz/vox_ws/src/mav_trajectory_generation/mav_visualization/include/**",
+                "/home/wlz/vox_ws/src/mavros/mavros/include/**",
+                "/home/wlz/vox_ws/src/mavros/mavros_msgs/include/**",
+                "/home/wlz/vox_ws/src/minkindr/minkindr/include/**",
+                "/home/wlz/vox_ws/src/minkindr_ros/minkindr_conversions/include/**",
+                "/home/wlz/vox_ws/src/nlopt/include/**",
+                "/home/wlz/vox_ws/src/tools/numpy_eigen/include/**",
+                "/home/wlz/vox_ws/src/OpenChisel/open_chisel/include/**",
+                "/home/wlz/vox_ws/src/pcl_ros/include/**",
+                "/home/wlz/vox_ws/src/rotors_simulator/rotors_control/include/**",
+                "/home/wlz/vox_ws/src/rotors_simulator/rotors_gazebo_plugins/include/**",
+                "/home/wlz/vox_ws/src/rotors_simulator/rotors_hil_interface/include/**",
+                "/home/wlz/vox_ws/src/rotors_simulator/rotors_joy_interface/include/**",
+                "/home/wlz/vox_ws/src/opnet/include/**",
+                "/home/wlz/vox_ws/src/mavros/test_mavros/include/**",
+                "/home/wlz/vox_ws/src/voxblox/voxblox/include/**",
+                "/home/wlz/vox_ws/src/voxblox/voxblox_ros/include/**",
+                "/home/wlz/vox_ws/src/voxblox/voxblox_rviz_plugin/include/**",
+                "/usr/include/**"
+            ],
+            "name": "ROS",
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}

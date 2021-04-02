@@ -1,0 +1,1 @@
+/home/wlz/catkin_ws/src/krrt-planner/opnet/src/filelists/5cm_80_40_train.txt

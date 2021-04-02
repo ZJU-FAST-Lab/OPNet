@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+  <arg name="odom_topic" value="/visual_slam/odom" />
+  <arg name="global_env_pcd2_topic" value="/all_map" />
+  
+  <arg name="simulation" default="true"/>
+  <arg name="drone_number" default="1"/>
+  
+  <arg name="map_size_x" value="50.0"/>
+  <arg name="map_size_y" value="3.0"/>
+  <arg name="map_size_z" value=" 3.0"/>
+
+  <arg name="init_x" value="0.0"/>
+  <arg name="init_y" value="-0.0"/>
+  <arg name="init_z" value="1.0"/> 
+
+  <!-- map generation -->
+  <!-- <node pkg="map_generator" name ="random_forest" type ="random_forest" output = "screen">    
+    <remap from="~odometry"   to="$(arg odom_topic)"/>    
+    <param name="init_state_x"   value="$(arg init_x)"/>
+    <param name="init_state_y"   value="$(arg init_y)"/>
+    <param name="map/x_size"     value="$(arg map_size_x)" />
+    <param name="map/y_size"     value="$(arg map_size_y)" />
+    <param name="map/z_size"     value="$(arg map_size_z)" />
+    <param name="map/obs_num"    value="100"/>    
+    <param name="map/circle_num"    value="50"/>   
+    <param name="map/resolution" value="0.2"/>        
+    <param name="ObstacleShape/lower_rad" value="0.5"/>
+    <param name="ObstacleShape/upper_rad" value="2"/>
+    <param name="ObstacleShape/lower_hei" value="1"/>
+    <param name="ObstacleShape/upper_hei" value="5"/>        
+    <param name="CircleShape/lower_circle_rad" value="0.6"/>        
+    <param name="CircleShape/upper_circle_rad" value="1.5"/>        
+    <param name="sensing/rate"   value="1.0"/>        
+  </node> -->
+  <node pkg="map_generator" name ="random_forest" type ="map_generator_easy.py" output = "screen">    
+    <remap from="~odometry"   to="$(arg odom_topic)"/>    
+    <param name="init_state_x"   value="$(arg init_x)"/>
+    <param name="init_state_y"   value="$(arg init_y)"/>
+    <param name="map/x_size"     value="$(arg map_size_x)" />
+    <param name="map/y_size"     value="$(arg map_size_y)" />
+    <param name="map/z_size"     value="$(arg map_size_z)" />
+    <param name="map/obs_num"    value="100"/>    
+    <param name="map/circle_num"    value="50"/>   
+    <param name="map/resolution" value="0.10"/>        
+    <param name="ObstacleShape/lower_rad" value="0.5"/>
+    <param name="ObstacleShape/upper_rad" value="2"/>
+    <param name="ObstacleShape/lower_hei" value="1"/>
+    <param name="ObstacleShape/upper_hei" value="5"/>        
+    <param name="CircleShape/lower_circle_rad" value="0.6"/>        
+    <param name="CircleShape/upper_circle_rad" value="1.5"/>  
+    <param name="sensing/rate"   value="1.0"/>        
+  </node>
+	
+  <node pkg="so3_quadrotor_simulator" type="quadrotor_simulator_so3" name="quadrotor_simulator_so3" output="screen">
+        <param name="rate/odom" value="200.0"/>
+        <param name="simulator/init_state_x" value="$(arg init_x)"/>
+        <param name="simulator/init_state_y" value="$(arg init_y)"/>
+        <param name="simulator/init_state_z" value="$(arg init_z)"/>
+
+        <remap from="~odom" to="/visual_slam/odom"/>
+        <remap from="~cmd" to="so3_cmd"/>
+        <remap from="~force_disturbance" to="force_disturbance"/>    
+        <remap from="~moment_disturbance" to="moment_disturbance"/>        
+  </node>
+ 
+  <!-- Controller -->
+  <!-- <node pkg="nodelet"
+      type="nodelet"
+      args="standalone cascade_controller/CascadeControllerNode"
+      name="cascade_control"
+      required="true"
+      output="screen">
+      <param name="simulation" type="bool" value="$(arg simulation)" />
+      <param name="quadrotor_name" value="test" />
+      <param name="gains/rot/x"    value="1.5" />
+      <param name="gains/rot/y"    value="1.5" />
+      <param name="gains/rot/z"    value="1.0" />
+      <param name="gains/ang/x"    value="0.13" />
+      <param name="gains/ang/y"    value="0.13" />
+      <param name="gains/ang/z"    value="0.1" />
+      <param name="corrections/z"  value="0" />
+      <param name="corrections/r"  value="0" />
+      <param name="corrections/p"  value="0" />
+      <param name="mass"    value="0.5" />
+
+      <rosparam>
+      #controller coeff:    [p,i,d] x [x,y,z]
+      position_coeff:       [  2.30,  0.0025, 0.0001,   2.30,  0.0025,  0.0001,   3.50, 0.0025, 0.0101]
+      velocity_coeff:       [  2.00,  0.0005, 0.0050,   2.00,  0.0005,  0.0050,   2.80, 0.0010, 0.0100]
+      acceleration_coeff:   [  0.10,  0.0000, 0.0000,   0.10,  0.0000,  0.0010,   0.10, 0.0000, 0.0000]
+      #output limitation:   [max, min, intergration_threshold] x [x,y,z]
+      position_limit:       [   50, -50,    0.1,     50,   -50,    0.1,50,   -50,    0.1]
+      velocity_limit:       [   50, -50,    0.1,     50,   -50,    0.1,50,   -50,    0.1]
+      acceleration_limit:   [   50, -50,    0.1,     50,   -50,    0.1,50,   -50,    0.1]
+      </rosparam>
+
+      <remap from="~position_command" to="/planning/pos_cmd"/> 
+      <remap from="~odom_correction"  to="corrections"/>
+      <remap from="~odom"             to="/state_ukf/odom"/>
+      <remap from="~imu_world"        to="/quadrotor_simulator_so3/imu"/>
+      <remap from="~view"             to="/view"/>
+      <remap from="~thrust"           to="drone_$(arg drone_number)/thrust"/>
+
+      <remap from="~debug/velocity_error"       to="/debug/velocity_error"/>
+      <remap from="~debug/acceleration_desire"  to="/debug/acceleration_desire"/>
+      <remap from="~debug/euler_angles"         to="/debug/euler_angles"/>
+      <remap from="~so3_command"       to="so3_cmd"/>
+      <remap from="~palstance_command" to="drone_$(arg drone_number)/palstance_command"/>
+      <remap from="~attitude_command"  to="dji_sdk_$(arg drone_number)/dji_sdk/flight_control_setpoint_generic"/>
+      <remap from="~translation_error" to="drone_$(arg drone_number)/translation_error"/>
+      <remap from="~sdk/flight_status" to="dji_sdk_$(arg drone_number)/dji_sdk/flight_status"/>
+  </node> -->
+	
+  <node pkg="nodelet" type="nodelet" args="standalone so3_control/SO3ControlNodelet" name="so3_control" required="true" output="screen">
+        <remap from="~odom" to="/visual_slam/odom"/>
+        <remap from="~position_cmd" to="/planning/pos_cmd"/>
+        <remap from="~motors" to="motors"/>
+        <remap from="~corrections" to="corrections"/>
+        <remap from="~so3_cmd" to="so3_cmd"/>
+        <rosparam file="$(find so3_control)/config/gains_hummingbird.yaml"/>
+        <rosparam file="$(find so3_control)/config/corrections_hummingbird.yaml"/>
+        <param name="mass" value="0.98"/>
+        <param name="use_angle_corrections " value="false"/>
+        <param name="use_external_yaw "      value="false"/>
+        <param name="gains/rot/z" value="1.0"/>    
+        <param name="gains/ang/z" value="0.1"/>        
+  </node>
+ 
+  <!-- <node pkg="so3_disturbance_generator" name="so3_disturbance_generator" type="so3_disturbance_generator" output="screen">
+        <remap from="~odom" to="/visual_slam/odom"/>             
+        <remap from="~noisy_odom" to="/state_ukf/odom"/>          
+        <remap from="~correction" to="/visual_slam/correction"/>   
+        <remap from="~force_disturbance" to="force_disturbance"/>        
+        <remap from="~moment_disturbance" to="moment_disturbance"/>            
+  </node>  -->
+ 
+  <node pkg="odom_visualization" name="odom_visualization" type="odom_visualization" output="screen">
+        <remap from="~odom" to="/visual_slam/odom"/>
+        <param name="color/a" value="1.0"/>    
+        <param name="color/r" value="1.0"/>        
+        <param name="color/g" value="0.0"/>        
+        <param name="color/b" value="0.0"/>       
+        <param name="covariance_scale" value="100.0"/>       
+        <param name="robot_scale" value="1.0"/>
+  </node>
+  
+  <node pkg="laser_simulator" type="laser_sim_node" name="laser_simulator" output="screen">
+		<param name="sensing_horizon" value="6.0" />
+		<param name="sensing_rate" value="10.0"/>
+    <param name="pc_resolution" value="0.05"/>
+    <param name="use_resolution_filter" value="true"/>
+
+		<param name="hrz_laser_line_num" value="300"/>
+		<param name="vtc_laser_line_num" value="100"/>
+		<param name="vtc_laser_range_dgr" value="160.0"/>
+
+		<remap from="~global_map" to="$(arg global_env_pcd2_topic)"/>
+		<remap from="~odometry" to="$(arg odom_topic)"/>
+	</node>
+
+</launch>

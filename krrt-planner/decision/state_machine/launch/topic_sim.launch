@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+  <node pkg="rosbag" type="record" name="bag_record" output="screen" args="-o /mnt/data/ /fcoa_output /camera/depth/image_rect_raw --tcpnodelay">
+  </node>
+  
+</launch>
