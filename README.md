@@ -22,9 +22,11 @@ Dependencies:
 
     2. CUDA (I am using 10.2)
 
-    3. for branch "master" (inference using NVIDIA TensorRT):
+    3. for branch "main" (inference using NVIDIA TensorRT):
         * TensorRT 7.0.0+cuda10.2 (with TensorRT ONNX  libraries)
-        
+
+If you want to run with only pytorch, please refer to https://gitee.com/leewlz/opnet and branch torch
+
     4. for branch "torch" (inference using a Python node with Pytorch ):
         * python > 2.7
         * numpy, Ipython, tensorboardX
